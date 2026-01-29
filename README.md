@@ -90,4 +90,4 @@ This source code can be updated and extended adding new parameters and functiona
 
 Be free to contact the author for sugestions and contribute to add new (or fix) any functionality(ies) in this source code.
 
-#### [License](https://creativecommons.org/licenses/by/4.0/)
+#### [License - CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
