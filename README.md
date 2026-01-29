@@ -22,20 +22,20 @@ Function 'goDir()' accept some command line parameters that control how it move 
 
 Usage: **goDir** [_options_]
 
-| Options                  | Description                                                                                     |
-|:-------------------------|:------------------------------------------------------------------------------------------------|
-| **goDir**                | With no parameters, list the stack content.                                                     |
-| **--help**               | Show this usage information.                                                                    |
-| **--clear**              | Clear stack, let current path in stack, do no change from current directory.                    |
-| **-**                    | Remove current path from stack, move to the next available in stack.                            |
-| **-** **-** [**-**]      | Remove count (-) paths from stack, move to the next available in stack.                         |
-| **- N**                  | Remove N (number) paths from the stack after the current one, stay in current directory.        |
-| **-N**                   | Remove current and N-1 (number) paths from the stack, move to the next path available in stack. |
-| **/path**                | Push path to stack and move to it.                                                              |
-| **/path/1**..**/path/N** | Push path list into stack, move to last one in the list (N).                                    |
-| **..**[**/**]            | Move 1 level back, push it into stack.                                                          |
-| **../..**[**/**]         | Move 2 levels back, push last one into stack.                                                   |
-| **..**[**/**]_N_         | Move N (number) levels back, push last one into stack.                                          |
+| Options                    | Description                                                                                     |
+|:---------------------------|:------------------------------------------------------------------------------------------------|
+| ``` goDir ```              | With no parameters, list the stack content.                                                     |
+| ``` --help ```             | Show this usage information.                                                                    |
+| ``` --clear ```            | Clear stack, let current path in stack, do no change from current directory.                    |
+| ``` - ```                  | Remove current path from stack, move to the next available in stack.                            |
+| ``` - - - ```              | Remove count (-) paths from stack, move to the next available in stack.                         |
+| ``` - N ```                | Remove N (number) paths from the stack after the current one, stay in current directory.        |
+| ``` -N ```                 | Remove current and N-1 (number) paths from the stack, move to the next path available in stack. |
+| ``` /path ```              | Push path to stack and move to it.                                                              |
+| ``` /path/1 .. /path/5 ``` | Push path list into stack, move to last one in the list (N).                                    |
+| ``` ../ ```                | Move 1 level back, push it into stack.                                                          |
+| ``` ../../ ```             | Move 2 levels back, push last one into stack.                                                   |
+| ``` ../N ```               | Move N (number) levels back, push last one into stack.                                          |
 
 ### Stack list
 
