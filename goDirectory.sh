@@ -14,10 +14,10 @@
 declare godirectory=''
 
 # function to check if goDirectory was loaded.
-function isGoDirectoryLoaded() {if [[ "${godirectory}" == 'loaded' ]]; then true; else false; fi; }
+function isGoDirectoryLoaded() { if [[ "${godirectory}" == 'loaded' ]]; then true; else false; fi; }
 
 # set aliases for goDir()
-alias gdir='goDir'
+alias godir='goDir'
 alias gd='goDir'
 alias go='goDir'
 
@@ -34,8 +34,8 @@ Where:
   gDir                  List the stack content.
   [gdir|gd|go]          Aliases for goDir() function.
 [options]:
-  -h                    Show this usage information.
-  -c|--clear            Clear stack, let current path in stack, do no move from current directory.
+  --help                Show this usage information.
+  --clear               Clear stack, let current path in stack, do no move from current directory.
   -                     Remove current path from stack, move to the next available in stack.
   - - - - -[ -]         Remove count (-) paths from stack, move to the next available in stack.
   - N                   Remove N paths from the stack after the current one, stay in current directory.
@@ -57,7 +57,7 @@ function goDir()
         while [ -n "$1" ]
         do
             case "$1" in
-            -h) usageGD ; break ;;
+            --help) usageGD ; break ;;
             -)  if echo -n "${2}" | grep -aoP '^[0-9]$' > /dev/null 2>&1
                 then
                     shift
@@ -69,7 +69,7 @@ function goDir()
                 fi
                 ;;
             -?) for ((i=$1 ; i<0 ; i++)) ; do popd > /dev/null 2>&1 || return $? ; done ;;
-            -c|--clear) while true ; do popd -n > /dev/null 2>&1 || break ; done ;;
+            --clear) while true ; do popd -n > /dev/null 2>&1 || break ; done ;;
             *)  local path="$1"
                 declare -i len=0
                 if echo -n "${path}" | grep -aoP '^\.\.\/? *[0-9]$' > /dev/null 2>&1 ; then
