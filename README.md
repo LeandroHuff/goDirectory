@@ -2,7 +2,7 @@
 
 Author: [Leandro D. Huff](https://github.com/LeandroHuff)
 
-Function gDir() (go directory) extend 'cd' command line using 'pushd' and 'popd' commands over a stack path list.
+Function goDir() (go directory) extend 'cd' command line using 'pushd' and 'popd' commands over a stack path list.
 
 ### Source and load
 
@@ -22,20 +22,20 @@ Function 'goDir()' accept some command line parameters that control how it move 
 
 Usage: **goDir** [_options_]
 
-| Options             | Description                                                                                        |
-|:--------------------|:---------------------------------------------------------------------------------------------------|
-| `goDir`             | With no parameters, list the stack content.                                                        |
-| `--help`            | Show this usage information.                                                                       |
-| `--clear`           | Clear stack, let current path in stack, do no change from current directory.                       |
-| `-`                 | Remove current path from stack, move to the next available in stack.                               |
-| `- - -`             | Remove count - (number of) paths from stack, move to the next available in stack.                  |
-| `- N`               | Remove N (number of) paths from the stack after the current one, stay in current directory.        |
-| `-N`                | Remove current and N-1 (number of) paths from the stack, move to the next path available in stack. |
-| `/dir`              | Push path to stack and move to it.                                                                 |
-| `/dir1 /dir2 /dirN` | Push path list into stack, change to last one in the list (N).                                     |
-| `../`               | Move 1 level back, push it into stack.                                                             |
-| `../../`            | Move 2 levels back, push last one into stack.                                                      |
-| `../N`              | Move N (numbers) levels back, push last one into stack.                                            |
+| Options          | Description                                                                                        |
+|:-----------------|:---------------------------------------------------------------------------------------------------|
+| `goDir`          | With no parameters, list the stack content.                                                        |
+| `--help`         | Show this usage information.                                                                       |
+| `--clear`        | Clear stack, let current path in stack, do no change from current directory.                       |
+| `-`              | Remove current path from stack, move to the next available in stack.                               |
+| `- - -`          | Remove count - (number of) paths from stack, move to the next available in stack.                  |
+| `- N`            | Remove N (number of) paths from the stack after the current one, stay in current directory.        |
+| `-N`             | Remove current and N-1 (number of) paths from the stack, move to the next path available in stack. |
+| `/dir`           | Push path to stack and move to it.                                                                 |
+| `/dir1 .. /dirN` | Push path list into stack, change to last one in the list (N).                                     |
+| `../`            | Move 1 level back, push it into stack.                                                             |
+| `../../`         | Move 2 levels back, push last one into stack.                                                      |
+| `../N`           | Move N (numbers) levels back, push last one into stack.                                            |
 
 `N` in some cases mean Nth item position in the stack list, in other case mean the N items (number of).
 
