@@ -22,20 +22,22 @@ Function 'goDir()' accept some command line parameters that control how it move 
 
 Usage: **goDir** [_options_]
 
-| Options             | Description                                                                                     |
-|:--------------------|:------------------------------------------------------------------------------------------------|
-| `goDir`             | With no parameters, list the stack content.                                                     |
-| `--help`            | Show this usage information.                                                                    |
-| `--clear`           | Clear stack, let current path in stack, do no change from current directory.                    |
-| `-`                 | Remove current path from stack, move to the next available in stack.                            |
-| `- - -`             | Remove count (-) paths from stack, move to the next available in stack.                         |
-| `- N`               | Remove N (number) paths from the stack after the current one, stay in current directory.        |
-| `-N`                | Remove current and N-1 (number) paths from the stack, move to the next path available in stack. |
-| `/dir`              | Push path to stack and move to it.                                                              |
-| `/dir1 /dir2 /dirN` | Push path list into stack, move to last one in the list (N).                                    |
-| `../`               | Move 1 level back, push it into stack.                                                          |
-| `../../`            | Move 2 levels back, push last one into stack.                                                   |
-| `../N`              | Move N (number) levels back, push last one into stack.                                          |
+| Options             | Description                                                                                        |
+|:--------------------|:---------------------------------------------------------------------------------------------------|
+| `goDir`             | With no parameters, list the stack content.                                                        |
+| `--help`            | Show this usage information.                                                                       |
+| `--clear`           | Clear stack, let current path in stack, do no change from current directory.                       |
+| `-`                 | Remove current path from stack, move to the next available in stack.                               |
+| `- - -`             | Remove count - (number of) paths from stack, move to the next available in stack.                  |
+| `- N`               | Remove N (number of) paths from the stack after the current one, stay in current directory.        |
+| `-N`                | Remove current and N-1 (number of) paths from the stack, move to the next path available in stack. |
+| `/dir`              | Push path to stack and move to it.                                                                 |
+| `/dir1 /dir2 /dirN` | Push path list into stack, change to last one in the list (N).                                     |
+| `../`               | Move 1 level back, push it into stack.                                                             |
+| `../../`            | Move 2 levels back, push last one into stack.                                                      |
+| `../N`              | Move N (numbers) levels back, push last one into stack.                                            |
+
+`N` in some cases mean Nth item position in the stack list, in other case mean the N items (number of).
 
 ### Stack list
 
@@ -45,11 +47,9 @@ The main resource is the path list, it's an internal system stack that store the
 
 Over this path, the script can change current directory by getting or adding that in the stack list for next changes.
 
-`
-[*top*]                                                  [*bottom*]
-Last [0]       N [1]         N [2]         N [3]         N [4]
-_/path/dir5_  _/path/dir4_  _/path/dir3_  _/path/dir2_  _/path/dir1_
-`
+`[top]                                           [bottom]`
+`[0]         [1]         [2]         [3]         [4]`
+`/path/dir5  /path/dir4  /path/dir3  /path/dir2  /path/dir1`
 
 Some parameters use an integer number 'N' as parameter value to control its behaviour, this number is the counter number of positions in the list, starting from the first [0|top] until the last one [N|bottom] item in the stack list.
 
@@ -57,7 +57,7 @@ Understand this resource is fundamental to understand the source code functional
 
 Supose a path stack list as follow:
 
-`[**top**] _/path/dir5_  _/path/dir4_  _/path/dir3_  _/path/dir2_  _/path/dir1_  [**bottom**]`
+`/path/dir5  /path/dir4  /path/dir3  /path/dir2  /path/dir1`
 
 We'd like to remove current path from [**top**] position and N-1 paths from the stack list as:
 
@@ -76,7 +76,7 @@ We'd like to remove current path from [**top**] position and N-1 paths from the 
 In this example, -N mean number of items in the stack list, not the index position.
 The result will be something like:
 
-`[**top**] _/path/dir2_  _/path/dir1_  [**bottom**]`
+`/path/dir2  /path/dir1`
 
 Where _/path/dir2_ will be new current directory at prompt command line.
 
