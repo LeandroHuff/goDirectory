@@ -1,10 +1,9 @@
 ################################################################################
 # @file         goDirectory.sh
-# @brief        Source variables and functions to extend 'cd' command line using
-#               pushd and popd commands.
+# @brief        Source variables and functions to extend 'cd' command line by pushd and popd commands.
 # @author:      Leandro D. Huff
-# @copyright:   https://creativecommons.org/licenses/by/4.0/
-# @sintaxe:     source goDirectory.sh
+# @license:     CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+# @details:     source goDirectory.sh
 ################################################################################
 
 # Must be sourced not running
@@ -19,10 +18,9 @@ function isGoDirectoryLoaded() { if [[ "${godirectory}" == 'loaded' ]]; then tru
 # set aliases for goDir()
 alias godir='goDir'
 alias gd='goDir'
-alias go='goDir'
 
-# uncomment next line to let assign 'cd' to 'goDir()' as an alias.
-#alias cd='goDir'
+# uncomment next lines to assign 'go' to goDir() as an alias.
+#alias go='goDir'
 
 # function to show a help and usage information.
 function usageGoDir()
@@ -57,25 +55,52 @@ function goDir()
         while [ -n "$1" ]
         do
             case "$1" in
-            --help) usageGD ; break ;;
-            -)  if echo -n "${2}" | grep -aoP '^[0-9]$' > /dev/null 2>&1
+            --help)
+                usageGD
+                break
+                ;;
+            --clear)
+                while popd -n > /dev/null 2>&1
+                do
+                    :
+                done
+                ;;
+            -)
+                if echo -n "${2}" | grep -aoP '^[0-9]$' > /dev/null 2>&1
                 then
                     shift
                     declare -i items=$1
-                    while [ $items -gt 1 ] ; do popd -n > /dev/null 2>&1 || return $? ; items=$((items-1)) ; done
-                    if [ $items -eq 1 ] ; then popd > /dev/null 2>&1 || return $? ; fi
+                    while (( $items == 1 ))
+                    do
+                        popd -n > /dev/null 2>&1 || return $?
+                        items=$((items-1))
+                    done
+                    if (( $items == 1 ))
+                    then
+                        popd > /dev/null 2>&1 || return $?
+                    fi
                 else
                     popd > /dev/null 2>&1 || return $?
                 fi
                 ;;
-            -?) for ((i=$1 ; i<0 ; i++)) ; do popd > /dev/null 2>&1 || return $? ; done ;;
-            --clear) while true ; do popd -n > /dev/null 2>&1 || break ; done ;;
-            *)  local path="$1"
+            -[1-9])
+                for ((i=$1 ; i<0 ; i++))
+                do
+                    popd > /dev/null 2>&1 || return $?
+                done
+                ;;
+            *)
+                local path="$1"
                 declare -i len=0
-                if echo -n "${path}" | grep -aoP '^\.\.\/? *[0-9]$' > /dev/null 2>&1 ; then
-                    len=$(echo -n "${path}" | grep -aoP '[0-9]$')
+                if echo -n "${path}" | grep -aoP '^\.\.\/? *[0-9]$' > /dev/null 2>&1
+                then
                     pushd -n "${PWD}" > /dev/null 2>&1 || return $?
-                    while [ $len -gt 0 ] && ! [ "$PWD" = '/' ] ; do cd ../ > /dev/null 2>&1 || return $? ; len=$((len-1)) ; done
+                    len=$(echo -n "${path}" | grep -aoP '[0-9]$')
+                    while (( $len > 0 )) && ! [ "$PWD" = '/' ]
+                    do
+                        cd ../ > /dev/null 2>&1 || return $?
+                        ((len--))
+                    done
                     pushd "${PWD}" > /dev/null 2>&1 || return $?
                 else
                     pushd "${path}" > /dev/null 2>&1 || return $?
