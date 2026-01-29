@@ -52,7 +52,7 @@ Over this path, the script can change current directory by getting or adding tha
 `[0]         [1]         [2]         [3]         [4]`  
 `/path/dir5  /path/dir4  /path/dir3  /path/dir2  /path/dir1`  
 
-Some parameters use an integer number 'N' as parameter value to control its behaviour, this number is the counter number of positions in the list, starting from the first [0|top] until the last one [N|bottom] item in the stack list.
+Some parameters use an integer number 'N' as parameter value to control its behaviour, this number is the counter number of positions in the list, starting from the first [0] (top) until the last one [N] (bottom) item in the stack list.
 
 Understand this resource is fundamental to understand the source code functionality.
 
@@ -84,10 +84,10 @@ Where _/path/dir2_ will be new current directory at prompt command line.
 For more information about options and parameters use the follow command line:
 
 ``` sh
-goDir -h
+goDir --help
 ```
 
-This source code can be updated and extended adding new parameters and functionalities, the information can be obtained by **pushd** and **popd** _help_ and man pages.
+This source code can be updated and extended adding new parameters and functionalities, the information can be obtained by **pushd** _--help_ and **popd** _--help_ and man pages.
 
 Be free to contact the author for sugestions and contribute to add new (or fix) any functionality(ies) in this source code.
 
