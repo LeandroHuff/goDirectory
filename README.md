@@ -22,7 +22,7 @@ Function 'goDir()' accept some command line parameters that control how it move 
 
 Usage: **goDir** [_options_]
 
-|` Options        `|` Description                                                                                 `|
+| Options          | Description                                                                                   |
 |:-----------------|:----------------------------------------------------------------------------------------------|
 | `goDir`          | With no parameters, list the stack content.                                                   |
 | `--help`         | Show this usage information.                                                                  |
