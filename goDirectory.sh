@@ -1,6 +1,7 @@
 ################################################################################
 # @file         goDirectory.sh
 # @brief        Source variables and functions to extend 'cd' command line by pushd and popd commands.
+# @version:     1.0
 # @author:      Leandro D. Huff
 # @license:     CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
 # @details:     source goDirectory.sh
@@ -8,6 +9,9 @@
 
 # Must be sourced not running
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && exit 1
+
+# version number
+declare -a gdVersion=(1 0 0)
 
 # declare a variable to control the load of source code.
 declare godirectory=''
@@ -26,23 +30,24 @@ alias gd='goDir'
 function usageGoDir()
 {
     printf "\
-Function 'gDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands:
-Usage: gDir|[gdir|gd|go] [options]
+Function 'gDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands.
+Version: ${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}
+Usage: gDir|[gdir|gd] [options]
 Where:
   gDir                  List the stack content.
-  [gdir|gd|go]          Aliases for goDir() function.
+  [gdir|gd]             Aliases for goDir() function.
 [options]:
   --help                Show this usage information.
   --clear               Clear stack, let current path in stack, do no move from current directory.
-  -                     Remove current path from stack, move to the next available in stack.
-  - - - - -[ -]         Remove count (-) paths from stack, move to the next available in stack.
+  -                     Remove current path from the stack, move to the next available in stack.
+  - - - -[.. -]         Remove count '-' paths from the stack, move to the next available in stack.
   - N                   Remove N paths from the stack after the current one, stay in current directory.
   -N                    Remove current and N-1 paths from the stack, move to the next path available in stack.
-  /path                 Push path to stack and move to it.
-  /path/1 .. /path/N    Push N path(s) to stack, move to last one in the list (N).
-  ..[/]                 Move 1 level back, push it into stack.
-  ../..[/]              Move 2 levels back, push last one into stack.
-  ..[/]N                Move N levels back, push last one into stack.
+  /path                 Push path to the stack and move to it.
+  /path/1 .. /path/N    Push N path(s) to the stack, move to last one in the list (N).
+  ..[/]                 Move 1 level back, push it into the stack.
+  ../..[/]              Move 2 levels back, push last one into the stack.
+  ..[/]N                Move N levels back, push last one into the stack.
 "
 }
 

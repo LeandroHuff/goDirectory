@@ -1,6 +1,7 @@
 # [goDirectory](https://github.com/LeandroHuff/goDirectory)
 
 Author: [Leandro D. Huff](https://github.com/LeandroHuff)
+Version: **1**.**0**
 
 Function goDir() (go directory) extend 'cd' command line using 'pushd' and 'popd' commands over a stack path list.
 
