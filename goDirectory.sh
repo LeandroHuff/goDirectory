@@ -1,7 +1,7 @@
 ################################################################################
 # @file         goDirectory.sh
 # @brief        Source variables and functions to extend 'cd' command line by pushd and popd commands.
-# @version:     1.0
+# @version:     1.0.1
 # @author:      Leandro D. Huff
 # @license:     CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
 # @details:     source goDirectory.sh
@@ -11,7 +11,7 @@
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && exit 1
 
 # version number
-declare -a gdVersion=(1 0 0)
+declare -a gdVersion=(1 0 1)
 
 # declare a variable to control the load of source code.
 declare godirectory=''
@@ -30,13 +30,18 @@ alias gd='goDir'
 function usageGoDir()
 {
     printf "\
-Function 'gDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands.
+Function 'goDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands.
 Version: ${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}
-Usage: gDir|[gdir|gd] [options]
+
+Usage:
+  goDir|godir|gd  [options]
+
 Where:
-  gDir                  List the stack content.
-  [gdir|gd]             Aliases for goDir() function.
+  goDir                 Main function's name.
+  [godir|gd]            Aliases for goDir() function.
+
 [options]:
+  empty                 Show the stack content list.
   --help                Show this usage information.
   --clear               Clear stack, let current path in stack, do no move from current directory.
   -                     Remove current path from the stack, move to the next available in stack.
@@ -61,7 +66,7 @@ function goDir()
         do
             case "$1" in
             --help)
-                usageGD
+                usageGoDir
                 break
                 ;;
             --clear)

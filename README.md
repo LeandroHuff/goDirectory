@@ -49,9 +49,9 @@ The main resource is the path list, it's an internal system stack that store the
 
 Over this path, the script can change current directory by getting or adding that in the stack list for next changes.
 
-`[top]                                           [bottom]`  
-`[0]         [1]         [2]         [3]         [4]`  
-`/path/dir5  /path/dir4  /path/dir3  /path/dir2  /path/dir1`  
+`[top]                                           [bottom]`
+`[0]         [1]         [2]         [3]         [4]`
+`/path/dir5  /path/dir4  /path/dir3  /path/dir2  /path/dir1`
 
 Some parameters use an integer number 'N' as parameter value to control its behaviour, this number is the counter number of positions in the list, starting from the first [0] (top) until the last one [N] (bottom) item in the stack list.
 
