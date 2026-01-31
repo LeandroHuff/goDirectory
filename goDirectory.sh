@@ -8,7 +8,7 @@
 ################################################################################
 
 # Must be sourced not running
-[[ "${BASH_SOURCE[0]}" == "${0}" ]] && exit 1
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && { "\033[91merror\033[0m: $(basename $0) must be sourced not running." ; exit 1 ; }
 
 # version number
 declare -a gdVersion=(1 0 1)
@@ -18,13 +18,6 @@ declare godirectory=''
 
 # function to check if goDirectory was loaded.
 function isGoDirectoryLoaded() { if [[ "${godirectory}" == 'loaded' ]]; then true; else false; fi; }
-
-# set aliases for goDir()
-alias godir='goDir'
-alias gd='goDir'
-
-# uncomment next lines to assign 'go' to goDir() as an alias.
-#alias go='goDir'
 
 # function to show a help and usage information.
 function usageGoDir()
