@@ -51,7 +51,7 @@ Where:
 "
 }
 
-# function go change to/from directories by a stack using pushd and popd commands.
+# function to change to/from directories by a stack using pushd and popd commands.
 # goDir() function accept some arguments, look at usageGoDir() or pass -h as an argument.
 function goDir()
 {
