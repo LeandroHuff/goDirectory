@@ -1,17 +1,17 @@
 ################################################################################
 # @file         goDirectory.sh
 # @brief        Source variables and functions to extend 'cd' command line by pushd and popd commands.
-# @version:     1.0
+# @version:     1.0.1
 # @author:      Leandro D. Huff
 # @license:     CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
 # @details:     source goDirectory.sh
 ################################################################################
 
 # Must be sourced not running
-[[ "${BASH_SOURCE[0]}" == "${0}" ]] && exit 1
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && { "\033[91merror\033[0m: $(basename $0) must be sourced not running." ; exit 1 ; }
 
 # version number
-declare -a gdVersion=(1 0 0)
+declare -a gdVersion=(1 0 1)
 
 # declare a variable to control the load of source code.
 declare godirectory=''
@@ -19,24 +19,22 @@ declare godirectory=''
 # function to check if goDirectory was loaded.
 function isGoDirectoryLoaded() { if [[ "${godirectory}" == 'loaded' ]]; then true; else false; fi; }
 
-# set aliases for goDir()
-alias godir='goDir'
-alias gd='goDir'
-
-# uncomment next lines to assign 'go' to goDir() as an alias.
-#alias go='goDir'
-
 # function to show a help and usage information.
 function usageGoDir()
 {
     printf "\
-Function 'gDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands.
+Function 'goDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands.
 Version: ${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}
-Usage: gDir|[gdir|gd] [options]
+
+Usage:
+  goDir|godir|gd  [options]
+
 Where:
-  gDir                  List the stack content.
-  [gdir|gd]             Aliases for goDir() function.
+  goDir                 Main function's name.
+  [godir|gd]            Aliases for goDir() function.
+
 [options]:
+  empty                 Show the stack content list.
   --help                Show this usage information.
   --clear               Clear stack, let current path in stack, do no move from current directory.
   -                     Remove current path from the stack, move to the next available in stack.
@@ -51,7 +49,8 @@ Where:
 "
 }
 
-# function to change to/from directories by a stack using pushd and popd commands.
+# function to change to/from directories by a stack using pushd and popd
+# commands.
 # goDir() function accept some arguments, look at usageGoDir() or pass -h as an argument.
 function goDir()
 {
@@ -61,7 +60,7 @@ function goDir()
         do
             case "$1" in
             --help)
-                usageGD
+                usageGoDir
                 break
                 ;;
             --clear)
