@@ -26,8 +26,9 @@ Usage: **goDir** [_options_]
 | Options          | Description                                                                                   |
 |:-----------------|:----------------------------------------------------------------------------------------------|
 | `goDir`          | With no parameters, list the stack content.                                                   |
-| `--help`         | Show this usage information.                                                                  |
-| `--clear`        | Clear stack, let current path in stack, do no change from current directory.                  |
+| `-h|--help`      | Show this usage information.                                                                  |
+| `-c|--clear`     | Clear stack, let current path in stack, do no change from current directory.                  |
+| `-v|--version`   | Show version number.                                                                          |
 | `-`              | Remove current path from stack, move to the next available in stack.                          |
 | `- - -`          | Remove count - paths from stack, move to the next available in stack.                         |
 | `- N`            | Remove N paths from the stack after the current one, stay in current directory, max 9.        |
