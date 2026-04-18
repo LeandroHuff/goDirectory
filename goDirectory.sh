@@ -11,13 +11,7 @@
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && { "\033[91merror\033[0m: $(basename $0) must be sourced not running." ; exit 1 ; }
 
 # version number
-declare -a gdVersion=(1 0 1)
-
-# declare a variable to control the load of source code.
-declare godirectory=''
-
-# function to check if goDirectory was loaded.
-function isGoDirectoryLoaded() { if [[ "${godirectory}" == 'loaded' ]]; then true; else false; fi; }
+declare -a gdVersion=(1 0 2)
 
 # function to show a help and usage information.
 function usageGoDir()
@@ -74,12 +68,12 @@ function goDir()
                 then
                     shift
                     declare -i items=$1
-                    while (( $items == 1 ))
+                    while (( items > 1 ))
                     do
                         popd -n > /dev/null 2>&1 || return $?
                         items=$((items-1))
                     done
-                    if (( $items == 1 ))
+                    if (( items == 1 ))
                     then
                         popd > /dev/null 2>&1 || return $?
                     fi
@@ -100,7 +94,7 @@ function goDir()
                 then
                     pushd -n "${PWD}" > /dev/null 2>&1 || return $?
                     len=$(echo -n "${path}" | grep -aoP '[0-9]$')
-                    while (( $len > 0 )) && ! [ "$PWD" = '/' ]
+                    while (( len > 0 )) && ! [ "$PWD" = '/' ]
                     do
                         cd ../ > /dev/null 2>&1 || return $?
                         ((len--))
@@ -118,5 +112,5 @@ function goDir()
     fi
 }
 
-# set a variable to control if source code was loaded successfully.
-godirectory='loaded'
+# function to check if goDirectory was loaded.
+function gdLoaded() { echo -n "${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}" ; }
