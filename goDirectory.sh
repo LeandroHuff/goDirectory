@@ -1,7 +1,7 @@
 ################################################################################
 # @file         goDirectory.sh
 # @brief        Source variables and functions to extend 'cd' command line by pushd and popd commands.
-# @version:     1.0.1
+# @version:     1.0.2
 # @author:      Leandro D. Huff
 # @license:     CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
 # @details:     source goDirectory.sh
@@ -18,7 +18,7 @@ function usageGoDir()
 {
     printf "\
 Function 'goDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands.
-Version: ${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}
+Version: v${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}
 
 Usage:
   goDir|godir|gd  [options]
@@ -53,18 +53,14 @@ function goDir()
         while [ -n "$1" ]
         do
             case "$1" in
-            --help)
-                usageGoDir
-                break
-                ;;
-            --clear)
-                while popd -n > /dev/null 2>&1
-                do
-                    :
-                done
-                ;;
-            -)
-                if echo -n "${2}" | grep -aoP '^[0-9]$' > /dev/null 2>&1
+            -h|--help) usageGoDir ; break ;;
+            -v|--version) echo "v${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}" ;;
+            -c|--clear) while popd -n > /dev/null 2>&1
+                        do
+                            :
+                        done
+                        ;;
+            -)  if echo -n "${2}" | grep -aoP '^[0-9]$' > /dev/null 2>&1
                 then
                     shift
                     declare -i items=$1
@@ -81,14 +77,8 @@ function goDir()
                     popd > /dev/null 2>&1 || return $?
                 fi
                 ;;
-            -[1-9])
-                for ((i=$1 ; i<0 ; i++))
-                do
-                    popd > /dev/null 2>&1 || return $?
-                done
-                ;;
-            *)
-                local path="$1"
+            -[1-9]) for ((i=$1 ; i<0 ; i++)) ; do popd > /dev/null 2>&1 || return $? ; done ;;
+            *)  local path="$1"
                 declare -i len=0
                 if echo -n "${path}" | grep -aoP '^\.\.\/? *[0-9]$' > /dev/null 2>&1
                 then
@@ -113,4 +103,4 @@ function goDir()
 }
 
 # function to check if goDirectory was loaded.
-function gdLoaded() { echo -n "${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}" ; }
+function gdLoaded() { echo -n "v${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}" ; }
