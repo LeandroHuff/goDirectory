@@ -1,7 +1,7 @@
 ################################################################################
 # @file         goDirectory.sh
 # @brief        Source variables and functions to extend 'cd' command line by pushd and popd commands.
-# @version:     1.0.2
+# @version:     1.0.3
 # @author:      Leandro D. Huff
 # @license:     CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
 # @details:     source goDirectory.sh
@@ -11,7 +11,7 @@
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && { "\033[91merror\033[0m: $(basename $0) must be sourced not running." ; exit 1 ; }
 
 # version number
-declare -a gdVersion=(1 0 2)
+declare -a gdVersion=(1 0 3)
 
 # function to show a help and usage information.
 function usageGoDir()
@@ -29,9 +29,10 @@ Where:
 
 [options]:
   empty                 Show the stack content list.
-  --help                Show this usage information.
-  --clear               Clear stack, let current path in stack, do no move from current directory.
-  -                     Remove current path from the stack, move to the next available in stack.
+  -h|--help             Show this usage information.
+  -c|-clr|--clear       Clear stack, let current path in stack, do no move from current directory.
+  -v|--version          Show application version.
+  - |--back             Remove current path from the stack, move to the next available in stack.
   - - - -[.. -]         Remove count '-' paths from the stack, move to the next available in stack.
   - N                   Remove N paths from the stack after the current one, stay in current directory.
   -N                    Remove current and N-1 paths from the stack, move to the next path available in stack.
@@ -53,14 +54,21 @@ function goDir()
         while [ -n "$1" ]
         do
             case "$1" in
-            -h|--help) usageGoDir ; break ;;
-            -v|--version) echo "v${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}" ;;
-            -c|--clear) while popd -n > /dev/null 2>&1
-                        do
-                            :
-                        done
-                        ;;
-            -)  if echo -n "${2}" | grep -aoP '^[0-9]$' > /dev/null 2>&1
+            -h|--help)
+                usageGoDir
+                break
+                ;;
+            -v|--version)
+                echo "v${gdVersion[0]}.${gdVersion[1]}.${gdVersion[2]}"
+                ;;
+            -c|-clr|--clear) 
+                while popd -n > /dev/null 2>&1
+                do
+                    :
+                done
+                ;;
+            -)
+                if echo -n "${2}" | grep -aoP '^[0-9]$' > /dev/null 2>&1
                 then
                     shift
                     declare -i items=$1
@@ -77,8 +85,14 @@ function goDir()
                     popd > /dev/null 2>&1 || return $?
                 fi
                 ;;
-            -[1-9]) for ((i=$1 ; i<0 ; i++)) ; do popd > /dev/null 2>&1 || return $? ; done ;;
-            *)  local path="$1"
+            -[1-9])
+                for ((i=$1 ; i<0 ; i++))
+                do
+                    popd > /dev/null 2>&1 || return $?
+                done
+                ;;
+            *)
+                local path="$1"
                 declare -i len=0
                 if echo -n "${path}" | grep -aoP '^\.\.\/? *[0-9]$' > /dev/null 2>&1
                 then
