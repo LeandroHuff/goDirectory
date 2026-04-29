@@ -25,19 +25,19 @@ Usage: **goDir** [_options_]
 
 | Options          | Description                                                                                   |
 |:-----------------|:----------------------------------------------------------------------------------------------|
-| `goDir`          | With no parameters, list the stack content.                                                   |
-| `-h|--help`      | Show this usage information.                                                                  |
-| `-c|-clr|--clear`| Clear stack, let current path in stack, do no change from current directory.                  |
-| `-v|--version`   | Show version number.                                                                          |
-| `-`              | Remove current path from stack, move to the next available in stack.                          |
-| `- - -`          | Remove count - paths from stack, move to the next available in stack.                         |
-| `- N`            | Remove N paths from the stack after the current one, stay in current directory, max 9.        |
-| `-N`             | Remove current and N-1 paths from the stack, move to the next path available in stack, max 9. |
-| `/dir`           | Push path to stack and move to it.                                                            |
-| `/dir1 .. /dirN` | Push path list into stack, change to last one in the list (N).                                |
-| `../`            | Move 1 level back, push it into stack.                                                        |
-| `../../`         | Move 2 levels back, push last one into stack.                                                 |
-| `../N`           | Move N levels back, push last one into stack, max 9.                                          |
+| goDir            | With no parameters, list the stack content.                                                   |
+| -h|--help        | Show this usage information.                                                                  |
+| -c|-clr|--clear  | Clear stack, let current path in stack, do no change from current directory.                  |
+| -v|--version     | Show version number.                                                                          |
+| -                | Remove current path from stack, move to the next available in stack.                          |
+| - - -            | Remove count - paths from stack, move to the next available in stack.                         |
+| - N              | Remove N paths from the stack after the current one, stay in current directory, max 9.        |
+| -N               | Remove current and N-1 paths from the stack, move to the next path available in stack, max 9. |
+| /dir             | Push path to stack and move to it.                                                            |
+| /dir1 .. /dirN   | Push path list into stack, change to last one in the list (N).                                |
+| ../              | Move 1 level back, push it into stack.                                                        |
+| ../../           | Move 2 levels back, push last one into stack.                                                 |
+| ../N             | Move N levels back, push last one into stack, max 9.                                          |
 
 `-` Mean the top item in the stack list.
 `N` Mean 1 or N (counter/number of) items in the list.
