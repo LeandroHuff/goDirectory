@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 ## @file        goDirectory.sh
 ## @brief       Source variables and functions to extend 'cd' command line by pushd and popd commands.
 ## @version:    1.0.7
@@ -62,7 +60,7 @@ function pushDirNotOnTop()
     if ! reMatch "$list" "$regex" ; then pushDirChange "$1" ; fi
 }
 
-## @brief   Go to directory and back by a stack of dirs.
+## @brief   Go to directory and back by a stack of paths.
 function goDir()
 {
     local version='1.0.7'
@@ -79,7 +77,7 @@ function goDir()
                 ;;
             -h|--help)
                 echo -e "\
-Function 'goDir()' (go dir) extend 'cd' command line using 'pushd' and 'popd' commands.
+Function 'goDir()' (go to directories) extend 'cd' command line using 'pushd' and 'popd' commands.
 Version: ${version}
 Usage: goDir  [options]
 [options]:
@@ -91,8 +89,8 @@ Usage: goDir  [options]
   -[ - - ... -]         Remove count '-' paths from the stack, move to the next available on stack.
   - N                   Remove N paths from the stack after the current one, stay at current directory.
   -N                    Remove current and N-1 paths from the stack, move to the next path available on stack.
-  /path                 Push path to the stack and move to it.
-  /path/1 .. /path/N    Push N path(s) to the stack, move to the last one for list (N).
+  /path                 Push path to the stack and move to that.
+  /path/1 .. /path/N    Push N path(s) to the stack, move to the last one (N) at list.
   ..[/]                 Move 1 level back, push it on the stack.
   ../..[/]              Move 2 levels back, push last one on the stack.
   ..[/]N                Move N levels back, push last one on the stack.
@@ -102,13 +100,14 @@ Usage: goDir  [options]
             -c|-clr|--clear)
                 while popDirOnly
                 do
+                    # do noting, just call function popDirOnly() while it return true.
                     :
                 done
                 ;;
             -[0-9])
                 if (($1 < 0))
                 then
-                    for ((i=$1 ; i<-1 ; i++)) ; do popDirOnly || return $? ; done
+                    for ((i=$1 ; i < -1 ; i++)) ; do popDirOnly || return $? ; done
                     popDirChange || return $?
                 fi
                 ;;
