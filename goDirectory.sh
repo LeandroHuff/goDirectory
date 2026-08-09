@@ -65,7 +65,7 @@ function pushDirNotOnTop()
 ## @brief   Go to directory and back by a stack of dirs.
 function goDir()
 {
-    local version='1.1.0'
+    local version='1.0.7'
     local path=''
     local -i len=0
     if [ $# -gt 0 ]
